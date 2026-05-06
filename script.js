@@ -101,7 +101,7 @@ const CHAT_ID = '1408342614';
 function validateUzbPhone(phoneNumber) {
     const cleanNumber = phoneNumber.replace(/\D/g, '');
     
-    const uzbPatterns = /^(90|91|93|94|95|97|98|99|33|88|77|00|05)\d{7}$/;
+   // const uzbPatterns = /^(90|91|93|94|95|97|98|99|33|88|77|00|05|55|50)\d{7}$/;
     
     if (cleanNumber.length !== 9) {
         return { valid: false, message: '❌ Telefon raqam 9 raqamdan iborat bo\'lishi kerak' };
