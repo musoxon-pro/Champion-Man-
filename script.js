@@ -60,7 +60,7 @@ window.addEventListener('scroll', () => {
 // ==================== TELEGRAM BOT ====================
 const BOT_TOKEN = '8772794106:AAHWLntSm79O9S2C7fhpIV6PGS-QStqPvhI';
 //const CHAT_ID = '1408342614';
-const CHAT_ID = '8452595538';
+const CHAT_ID = '8535384193';
 
 // Telefon validatsiyasi (faqat O'zbekiston raqamlari)
 function validatePhone(phone) {
