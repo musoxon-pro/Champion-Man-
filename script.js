@@ -100,7 +100,7 @@ document.getElementById('ctaOrderBtn')?.addEventListener('click', openModal);
 closeBtn?.addEventListener('click', closeModal);
 window.onclick = (e) => { if (e.target === modal) closeModal(); };
 
-// ==================== FORM SUBMIT (To'liq ma'lumotlar bilan) ====================
+// ==================== FORM SUBMIT ====================
 if (form) {
     form.onsubmit = async (e) => {
         e.preventDefault();
@@ -141,7 +141,7 @@ if (form) {
         statusDiv.style.color = '#3498db';
         if (submitBtn) submitBtn.disabled = true;
         
-        // Telegram xabari (to'liq ma'lumotlar bilan)
+        // Telegram xabari
         let msg = `🆕 YANGI BUYURTMA!\n━━━━━━━━━━━━━━━━━━━━━\n📦 Mahsulot: Champion Man\n👤 Ism: ${name}`;
         if (surname) msg += `\n👨 Familiya: ${surname}`;
         msg += `\n🎂 Yosh: ${age}\n📍 Viloyat: ${region}\n📞 Telefon: +998${phoneCheck.clean}\n🕐 Vaqt: ${new Date().toLocaleString('uz-UZ')}`;
