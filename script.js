@@ -1,80 +1,44 @@
-// ========== AOS INIT ==========
+// ==================== AOS INIT ====================
 AOS.init({ duration: 800, once: true, offset: 50 });
 
-// ========== FRIZ LAG TUZATILGAN ==========
-let ticking = false;
+// ==================== NAVBAR (SCROLL EFECT) ====================
 const navbar = document.getElementById('navbar');
-
 window.addEventListener('scroll', () => {
-    if (!ticking) {
-        requestAnimationFrame(() => {
-            if (window.scrollY > 10) {
-                navbar.style.background = 'rgba(255,255,255,0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-            } else {
-                navbar.style.background = 'rgba(255,255,255,0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
-            }
-            ticking = false;
-        });
-        ticking = true;
-    }
+    navbar.style.padding = window.scrollY > 50 ? '10px 0' : '15px 0';
 });
 
-// ========== SCROLLNI BLOKLASH FUNKSIYALARI ==========
-function disableScroll() {
-    const scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
-    document.body.style.overflow = 'hidden';
-    document.body.classList.add('modal-open');
-}
-
-function enableScroll() {
-    const scrollY = document.body.style.top;
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    document.body.style.overflow = '';
-    document.body.classList.remove('modal-open');
-    if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-    }
-}
-
-// ========== MOBILE MENU ==========
+// ==================== MOBILE MENU ====================
 const menuBtn = document.getElementById('menuBtn');
 const navLinks = document.getElementById('navLinks');
 
 if (menuBtn) {
-    menuBtn.addEventListener('click', () => {
+    menuBtn.onclick = () => {
         navLinks.classList.toggle('active');
         menuBtn.innerHTML = navLinks.classList.contains('active') ? 
             '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    };
+    
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.onclick = () => {
+            navLinks.classList.remove('active');
+            menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        };
     });
 }
 
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        if (menuBtn) menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    });
-});
-
-// ========== COUNTER ANIMATION ==========
+// ==================== COUNTER ANIMATION ====================
 const counters = document.querySelectorAll('.counter');
 let counted = false;
 
 function startCounters() {
-    if(counted) return;
+    if (counted) return;
     counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
+        const target = +counter.dataset.target;
         let current = 0;
-        const increment = target / 50;
+        const step = target / 50;
         const update = () => {
-            if(current < target) {
-                current += increment;
+            if (current < target) {
+                current += step;
                 counter.textContent = Math.ceil(current);
                 setTimeout(update, 20);
             } else {
@@ -88,40 +52,31 @@ function startCounters() {
 
 window.addEventListener('scroll', () => {
     const stats = document.querySelector('.stats');
-    if(stats && stats.getBoundingClientRect().top < window.innerHeight - 100) {
+    if (stats && stats.getBoundingClientRect().top < window.innerHeight - 100) {
         startCounters();
     }
 });
 
-// ========== TELEGRAM BOT SOZLAMALARI ==========
+// ==================== TELEGRAM BOT ====================
 const BOT_TOKEN = '7670335502:AAHo-2YvIqREbv0CaC5dr5eUL-sFWX2Bp4g';
 const CHAT_ID = '1408342614';
 
-// ========== TELEFON VALIDATSIYASI ==========
-function validateUzbPhone(phoneNumber) {
-    const cleanNumber = phoneNumber.replace(/\D/g, '');
-    
-   const uzbPatterns = /^(90|91|93|94|95|97|98|99|33|88|77|00|05|55|50|85)\d{7}$/;
-    
-    if (cleanNumber.length !== 9) {
-        return { valid: false, message: '❌ Telefon raqam 9 raqamdan iborat bo\'lishi kerak' };
-    }
-    
-    if (!uzbPatterns.test(cleanNumber)) {
-        return { valid: false, message: '❌ Faqat O\'zbekiston raqamlari qabul qilinadi' };
-    }
-    
-    return { valid: true, cleanNumber };
+// Telefon validatsiyasi (faqat O'zbekiston raqamlari)
+function validatePhone(phone) {
+    const clean = phone.replace(/\D/g, '');
+    const pattern = /^(90|91|93|94|95|97|98|99|33|88|77|50|55)\d{7}$/;
+    if (clean.length !== 9) return { ok: false, msg: '❌ Telefon 9 raqam bo\'lishi kerak' };
+    if (!pattern.test(clean)) return { ok: false, msg: '❌ Faqat O\'zbekiston raqamlari' };
+    return { ok: true, clean };
 }
 
+// Input formatlash
 const phoneInput = document.getElementById('phone');
 if (phoneInput) {
-    phoneInput.addEventListener('input', function(e) {
-        this.value = this.value.replace(/\D/g, '').slice(0, 9);
-    });
+    phoneInput.oninput = (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9); };
 }
 
-// ========== MODAL ==========
+// ==================== MODAL ====================
 const modal = document.getElementById('orderModal');
 const closeBtn = document.querySelector('.close');
 const form = document.getElementById('orderForm');
@@ -130,58 +85,29 @@ const submitBtn = document.getElementById('submitBtn');
 
 function openModal() {
     modal.style.display = 'block';
-    disableScroll();
+    document.body.style.overflow = 'hidden';
     statusDiv.textContent = '';
-    form.reset();
-    if (phoneInput) phoneInput.value = '';
+    if (form) form.reset();
 }
 
 function closeModal() {
     modal.style.display = 'none';
-    enableScroll();
+    document.body.style.overflow = '';
 }
 
-const heroOrderBtn = document.getElementById('heroOrderBtn');
-const navOrderBtn = document.getElementById('navOrderBtn');
-const ctaOrderBtn = document.getElementById('ctaOrderBtn');
+document.getElementById('navOrderBtn')?.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
+document.getElementById('ctaOrderBtn')?.addEventListener('click', openModal);
+closeBtn?.addEventListener('click', closeModal);
+window.onclick = (e) => { if (e.target === modal) closeModal(); };
 
-if (heroOrderBtn) heroOrderBtn.onclick = openModal;
-if (navOrderBtn) navOrderBtn.onclick = (e) => { e.preventDefault(); openModal(); };
-if (ctaOrderBtn) ctaOrderBtn.onclick = openModal;
-
-if (closeBtn) closeBtn.onclick = closeModal;
-
-window.onclick = (e) => { 
-    if(e.target == modal) closeModal();
-};
-
-// ========== XABAR YUBORISH ==========
-async function sendToTelegram(name, surname, phone, product) {
-    let message = `🆕 YANGI ZAKAZ!\n━━━━━━━━━━━━━━━━━━━━━\n📦 Mahsulot: ${product}\n👤 Ism: ${name}`;
-    if (surname) message += `\n👨 Familiya: ${surname}`;
-    message += `\n📞 Telefon: +998${phone}\n🕐 Vaqt: ${new Date().toLocaleString('uz-UZ')}\n━━━━━━━━━━━━━━━━━━━━━\n🌿 100% Tabiiy mahsulot | Anti-fishing`;
-
-    try {
-        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: CHAT_ID, text: message })
-        });
-        return await response.json();
-    } catch (error) {
-        console.error('Xatolik:', error);
-        return { ok: false, error: error.message };
-    }
-}
-
-// ========== FORMA YUBORISH ==========
+// ==================== FORM SUBMIT ====================
 if (form) {
     form.onsubmit = async (e) => {
         e.preventDefault();
         
         const name = document.getElementById('name').value.trim();
         const surname = document.getElementById('surname').value.trim();
-        const phoneRaw = document.getElementById('phone').value.trim();
+        const phone = document.getElementById('phone').value.trim();
         
         if (!name) {
             statusDiv.innerHTML = '❌ Ismingizni kiriting!';
@@ -189,15 +115,9 @@ if (form) {
             return;
         }
         
-        if (name.length < 2) {
-            statusDiv.innerHTML = '❌ Ism 2 harfdan kam bo\'lmasligi kerak!';
-            statusDiv.style.color = '#e74c3c';
-            return;
-        }
-        
-        const phoneValidation = validateUzbPhone(phoneRaw);
-        if (!phoneValidation.valid) {
-            statusDiv.innerHTML = phoneValidation.message;
+        const phoneCheck = validatePhone(phone);
+        if (!phoneCheck.ok) {
+            statusDiv.innerHTML = phoneCheck.msg;
             statusDiv.style.color = '#e74c3c';
             return;
         }
@@ -206,22 +126,29 @@ if (form) {
         statusDiv.style.color = '#3498db';
         if (submitBtn) submitBtn.disabled = true;
         
-        const result = await sendToTelegram(name, surname, phoneValidation.cleanNumber, 'Champion Man');
+        let msg = `🆕 YANGI BUYURTMA!\n━━━━━━━━━━━━━━━━━━━━━\n📦 Mahsulot: Champion Man\n👤 Ism: ${name}`;
+        if (surname) msg += `\n👨 Familiya: ${surname}`;
+        msg += `\n📞 Telefon: +998${phoneCheck.clean}\n🕐 Vaqt: ${new Date().toLocaleString('uz-UZ')}`;
         
-        if (result.ok) {
-            statusDiv.innerHTML = '✅ Zakaz qabul qilindi! Tez orada bog\'lanamiz.';
-            statusDiv.style.color = '#27ae60';
-            setTimeout(() => {
-                closeModal();
-                form.reset();
-                if (phoneInput) phoneInput.value = '';
-                if (submitBtn) submitBtn.disabled = false;
-            }, 2000);
-        } else {
+        try {
+            const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: msg })
+            });
+            const data = await res.json();
+            
+            if (data.ok) {
+                statusDiv.innerHTML = '✅ Buyurtma qabul qilindi!';
+                statusDiv.style.color = '#27ae60';
+                setTimeout(() => { closeModal(); if (submitBtn) submitBtn.disabled = false; }, 2000);
+            } else {
+                throw new Error();
+            }
+        } catch (err) {
             statusDiv.innerHTML = '❌ Xatolik yuz berdi. Qaytadan urining.';
             statusDiv.style.color = '#e74c3c';
             if (submitBtn) submitBtn.disabled = false;
-            console.error('Telegram xatosi:', result);
         }
     };
 }
