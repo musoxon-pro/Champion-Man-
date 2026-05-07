@@ -85,15 +85,16 @@
         .nav-links a:hover { color: #d4a017; }
         
         .order-nav-btn {
-            background: #1a5c3a;
+            background: #e74c3c;
             padding: 10px 25px;
             border-radius: 50px;
             color: white !important;
+            font-weight: bold;
         }
         
         .order-nav-btn:hover {
-            background: #d4a017;
-            color: #2c1810 !important;
+            background: #c0392b;
+            transform: scale(1.02);
         }
         
         .menu-btn {
@@ -381,33 +382,72 @@
             word-break: break-word;
         }
         
-        /* ==================== CTA ==================== */
+        /* ==================== CTA (QIZIL KATTA TUGMA) ==================== */
         .cta {
             padding: 70px 20px;
             background: #f0ebe3;
             text-align: center;
         }
         
-        .cta h2 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 15px; }
-        .cta .highlight { color: #d4a017; }
+        .cta h2 { 
+            font-size: clamp(1.5rem, 4vw, 2rem); 
+            margin-bottom: 15px; 
+        }
         
+        .cta .highlight { color: #e74c3c; }
+        
+        /* KATTA QIZIL TUGMA */
         .btn-order {
-            background: #1a5c3a;
-            padding: 18px 50px;
+            background: #e74c3c;
+            padding: 18px 40px;
             font-size: 1.3rem;
             border: none;
             border-radius: 60px;
             color: white;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.3s;
-            min-width: 250px;
+            transition: all 0.3s ease;
+            width: auto;
+            min-width: 280px;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .btn-order:hover {
-            background: #d4a017;
-            color: #2c1810;
-            transform: scale(1.02);
+            background: #c0392b;
+            transform: scale(1.03);
+            box-shadow: 0 12px 30px rgba(231, 76, 60, 0.5);
+        }
+        
+        .btn-order:active {
+            transform: scale(0.98);
+        }
+        
+        /* MOBIL UCHUN - KATTA QIZIL TUGMA */
+        @media (max-width: 480px) {
+            .btn-order {
+                width: 100%;
+                padding: 20px 20px;
+                font-size: 1.5rem;
+                min-width: unset;
+                border-radius: 50px;
+                box-shadow: 0 10px 30px rgba(231, 76, 60, 0.5);
+                animation: pulse 1.5s infinite;
+            }
+        }
+        
+        /* PULSE ANIMATSIYA - DIQQATNI JALB QILISH UCHUN */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(231, 76, 60, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+            }
         }
         
         /* ==================== FOOTER ==================== */
@@ -445,7 +485,7 @@
             font-size: 0.8rem;
         }
         
-        /* ==================== MODAL (FORM) ==================== */
+        /* ==================== MODAL (FORMA) ==================== */
         .modal {
             display: none;
             position: fixed;
@@ -561,16 +601,10 @@
             margin-right: 10px;
         }
         
-        .row-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        
         .submit-btn {
             width: 100%;
             padding: 16px;
-            background: #1a5c3a;
+            background: #e74c3c;
             border: none;
             border-radius: 50px;
             color: white;
@@ -582,8 +616,7 @@
         }
         
         .submit-btn:hover {
-            background: #d4a017;
-            color: #2c1810;
+            background: #c0392b;
             transform: scale(1.01);
         }
         
@@ -628,26 +661,21 @@
             
             .scientific-grid { grid-template-columns: 1fr; }
             .use-grid { grid-template-columns: 1fr; gap: 20px; }
-            
-            .row-2 {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-            
-            .btn-order {
-                padding: 16px 40px;
-                font-size: 1.2rem;
-                min-width: 200px;
-            }
         }
         
         @media (max-width: 480px) {
             .stats-grid { grid-template-columns: 1fr; }
             .hero-badges { gap: 8px; }
             .badge { font-size: 0.65rem; padding: 5px 12px; }
-            .btn-order { padding: 14px 30px; font-size: 1.1rem; min-width: 180px; }
             .ingredients-grid { gap: 15px; }
             .modal-content { padding: 25px 18px; }
+            
+            /* Mobil menyudagi tugma */
+            .order-nav-btn {
+                background: #e74c3c;
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -810,11 +838,14 @@
         </div>
     </section>
 
+    <!-- CTA - KATTA QIZIL TUGMA -->
     <section class="cta">
         <div class="container" data-aos="zoom-in">
             <h2>Hoziroq <span class="highlight">buyurtma bering!</span></h2>
             <p>Cheklangan taklif — 30 kunlik kafolat bilan sinab ko'ring</p>
-            <button class="btn-order" id="ctaOrderBtn"><i class="fas fa-shopping-cart"></i> Buyurtma berish</button>
+            <button class="btn-order" id="ctaOrderBtn">
+                <i class="fas fa-shopping-cart"></i> BUYURTMA BERISH
+            </button>
         </div>
     </section>
 
@@ -829,7 +860,7 @@
         </div>
     </footer>
 
-    <!-- MODAL - TO'LIQ FORMA (Ism, Familiya, Yosh, Viloyat, Telefon) -->
+    <!-- MODAL - TO'LIQ FORMA -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
