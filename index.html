@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="uz" style="overflow-x: hidden; width: 100%; max-width: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Champion Man | Tabiiy erkaklik kuchi</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS Animatsiya -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Yonga scroll tuzatish */
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0ebe3;
+            color: #2c1810;
+            line-height: 1.7;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+            position: relative;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            overflow-x: hidden;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(44, 24, 16, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d4a017;
+        }
+
+        .logo small {
+            font-size: 0.7rem;
+            color: #c9a87b;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #f0ebe3;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: #d4a017;
+        }
+
+        .order-nav-btn {
+            background: #1a5c3a;
+            padding: 10px 25px;
+            border-radius: 50px;
+            color: white !important;
+        }
+
+        .order-nav-btn:hover {
+            background: #d4a017;
+            color: #2c1810 !important;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #f0ebe3;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c1810 0%, #1a2a1a 100%);
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-content .tagline {
+            font-size: 1.1rem;
+            color: #d4a017;
+            font-weight: 600;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            letter-spacing: 3px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #f0ebe3;
+            word-break: break-word;
+        }
+
+        .hero-content h1 .highlight {
+            color: #d4a017;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #c9a87b;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .hero-main-text {
+            background: rgba(212, 160, 23, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #d4a017;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .hero-main-text p {
+            color: #f0ebe3;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+
+        .hero-main-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #f0ebe3;
+        }
+
+        .badge i {
+            color: #d4a017;
+            margin-right: 8px;
+        }
+
+        .product-types {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .product-type {
+            background: #1a5c3a;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .product-type:last-child {
+            background: #d4a017;
+            color: #2c1810;
+        }
+
+        .hero-image {
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            max-height: 450px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* ========== STATS ========== */
+        .stats {
+            padding: 70px 0;
+            background: #f0ebe3;
+            overflow-x: hidden;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 20px;
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            color: #1a5c3a;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            font-size: 2.2rem;
+            color: #d4a017;
+            font-weight: bold;
+        }
+
+        .stat-card p {
+            color: #2c1810;
+            font-size: 1rem;
+        }
+
+        /* ========== INGREDIENTS ========== */
+        .ingredients {
+            padding: 80px 0;
+            background: #e8dcc8;
+            overflow-x: hidden;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: #2c1810;
+            margin-bottom: 15px;
+        }
+
+        .section-header .underline {
+            width: 80px;
+            height: 3px;
+            background: #d4a017;
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+        }
+
+        .ingredient-card {
+            background: white;
+            padding: 25px 15px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .ingredient-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .ingredient-card i {
+            font-size: 2rem;
+            color: #1a5c3a;
+            margin-bottom: 12px;
+        }
+
+        .ingredient-card h4 {
+            color: #d4a017;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* ========== BENEFITS ========== */
+        .benefits {
+            padding: 80px 0;
+            background: #f0ebe3;
+            overflow-x: hidden;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 35px 20px;
+            background: white;
+            border-radius: 15px;
+            transition: all 0.3s;
+            border: 1px solid #e0d5c5;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .benefit-card:hover {
+            background: #1a5c3a;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: #d4a017;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card:hover i {
+            color: white;
+        }
+
+        .benefit-card h4 {
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        /* ========== SCIENTIFIC ========== */
+        .scientific {
+            padding: 80px 0;
+            background: #e8dcc8;
+            overflow-x: hidden;
+        }
+
+        .scientific-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .scientific-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .scientific-card h3 {
+            color: #1a5c3a;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .scientific-card ul {
+            padding-left: 20px;
+        }
+
+        .scientific-card li {
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        /* ========== HOW TO USE ========== */
+        .howtouse {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1a5c3a, #2c1810);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .howtouse .section-header h2 {
+            color: white;
+        }
+
+        .howtouse .section-header .underline {
+            background: #d4a017;
+        }
+
+        .use-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .use-card {
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .use-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .use-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #d4a017;
+        }
+
+        .use-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .warning {
+            margin-top: 40px;
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            padding: 18px;
+            border-radius: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.9rem;
+            word-break: break-word;
+        }
+
+        /* ========== CTA ========== */
+        .cta {
+            padding: 70px 0;
+            background: #f0ebe3;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: #2c1810;
+            margin-bottom: 15px;
+        }
+
+        .cta .price-badge {
+            margin: 25px 0;
+        }
+
+        .price-badge .old-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .price-badge .new-price {
+            color: #d4a017;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .btn-order {
+            background: #1a5c3a;
+            padding: 16px 50px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(26,92,58,0.4);
+        }
+
+        .btn-order:hover {
+            background: #d4a017;
+            color: #2c1810;
+            transform: scale(1.05);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #2c1810;
+            color: #c9a87b;
+            padding: 50px 0 20px;
+            overflow-x: hidden;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 15px;
+            color: #d4a017;
+            font-size: 1.1rem;
+        }
+
+        .footer-col p, .footer-col a {
+            color: #c9a87b;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-col a:hover {
+            color: #d4a017;
+        }
+
+        .footer-col a[target="_blank"]::after {
+            content: " ↗";
+            font-size: 0.7rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #3a2a20;
+            font-size: 0.8rem;
+        }
+
+        /* ========== MODAL ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 40px);
+            max-width: 400px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #f0ebe3;
+            padding: 30px 25px;
+            border-radius: 24px;
+            text-align: center;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #e0d5c5;
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #1a5c3a;
+            border-radius: 10px;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -45%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .modal-icon i {
+            font-size: 3rem;
+            color: #1a5c3a;
+        }
+
+        .modal-content h3 {
+            font-size: 1.5rem;
+            margin: 10px 0 5px;
+            color: #2c1810;
+        }
+
+        .modal-product-text {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            color: #2c1810;
+        }
+
+        .close:hover {
+            color: #d4a017;
+            background: rgba(0,0,0,0.05);
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            border: 1px solid #d4a017;
+            border-radius: 50px;
+            margin: 12px 0;
+            padding: 4px 18px;
+            transition: border-color 0.3s;
+            background: white;
+        }
+
+        .input-group:focus-within {
+            border-color: #1a5c3a;
+        }
+
+        .input-group i {
+            color: #1a5c3a;
+            width: 24px;
+            font-size: 1rem;
+        }
+
+        .input-group input {
+            border: none;
+            padding: 14px 8px;
+            width: 100%;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
+            border-radius: 50px;
+        }
+
+        .phone-group {
+            justify-content: flex-start;
+        }
+
+        .phone-code {
+            background: #1a5c3a;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #1a5c3a;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .submit-btn:hover {
+            background: #d4a017;
+            color: #2c1810;
+        }
+
+        .status {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        /* ========== MOBILE ========== */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: #2c1810;
+                flex-direction: column;
+                align-items: center;
+                padding: 30px;
+                transition: left 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            /* Yonga scroll uchun tuzatish - mobil variant */
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+
+            .product-types {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .scientific-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .use-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: calc(100% - 30px);
+                padding: 25px 20px;
+                max-height: 85vh;
+            }
+
+            /* Uzun so‘zlar uchun */
+            .badge, .product-type {
+                white-space: normal;
+                word-break: keep-all;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-badges {
+                gap: 10px;
+            }
+
+            .badge {
+                font-size: 0.7rem;
+                padding: 6px 14px;
+            }
+
+            .btn-order {
+                padding: 14px 35px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">🏆</div>
+                <div>
+                    <span>CHAMPION MAN</span>
+                    <small>NATURAL MEDIC</small>
+                </div>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Bosh</a>
+                <a href="#ingredients">Tarkib</a>
+                <a href="#benefits">Foydalari</a>
+                <a href="#howtouse">Qo'llanma</a>
+                <a href="#" class="order-nav-btn" id="navOrderBtn">Buyurtma berish</a>
+            </div>
+            <div class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-right">
+                <div class="tagline">🍃 100% TABIIY | HALOL</div>
+                <h1>CHAMPION <span class="highlight">MAN</span></h1>
+                
+                <div class="hero-main-text">
+                    <p><strong>🏠 Uy sharoitida ortiqcha xarajat va harakatlarsiz tabiiy va halol mahsulot bilan davolanish vaqti keldi!</strong></p>
+                    <p>Jinsiy zaiflik va prostata muammolarini Germaniya texnologiyasi asosida ishlab chiqarilgan va sinovdan o'tgan <strong>CHAMPION MAN</strong> mahsuloti bilan davolang.</p>
+                    <p><strong>CHAMPION MAN</strong> - Tezkor tabiiy yechim va uzoq muddatli kafolat</p>
+                </div>
+
+                <div class="hero-badges">
+                    <div class="badge"><i class="fas fa-leaf"></i> 100% Tabiiy</div>
+                    <div class="badge"><i class="fas fa-flask"></i> Germaniya texnologiyasi</div>
+                    <div class="badge"><i class="fas fa-shield-alt"></i> Sinovdan o'tgan</div>
+                    <div class="badge"><i class="fas fa-shield-virus"></i> Halol mahsulot</div>
+                </div>
+
+                <div class="product-types">
+                    <span class="product-type"><i class="fas fa-capsules"></i> Kapsula</span>
+                    <span class="product-type"><i class="fas fa-jar"></i> Asal aralashmasi</span>
+                </div>
+            </div>
+            <div class="hero-image" data-aos="fade-left">
+                <img src="image.png" alt="Champion Man" onerror="this.src='https://via.placeholder.com/400x450?text=CHAMPION+MAN'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="zoom-in">
+                    <i class="fas fa-smile"></i>
+                    <h3><span class="counter" data-target="12000">0</span>+</h3>
+                    <p>Mamnun mijozlar</p>
+                </div>
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-leaf"></i>
+                    <h3><span class="counter" data-target="28">0</span>+</h3>
+                    <p>Tabiiy komponent</p>
+                </div>
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-trophy"></i>
+                    <h3><span class="counter" data-target="98">0</span>%</h3>
+                    <p>Mijozlar mamnuniyati</p>
+                </div>
+                <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-clock"></i>
+                    <h3><span class="counter" data-target="30">0</span> kun</h3>
+                    <p>Kafolat</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ingredients -->
+    <section id="ingredients" class="ingredients">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Tabiiy <span style="color:#d4a017;">Tarkib</span></h2>
+                <div class="underline"></div>
+                <p>28 dan ortiq qimmatbaho o'simlik ekstraktlari</p>
+            </div>
+            <div class="ingredients-grid">
+                <div class="ingredient-card" data-aos="flip-left"><i class="fas fa-seedling"></i><h4>Tribulus</h4><p>Testosteron ishlab chiqaradi</p></div>
+                <div class="ingredient-card" data-aos="flip-left" data-aos-delay="50"><i class="fas fa-leaf"></i><h4>Yohimbe</h4><p>Jinsiy quvvatni oshiradi</p></div>
+                <div class="ingredient-card" data-aos="flip-left" data-aos-delay="100"><i class="fas fa-tree"></i><h4>Epimedium</h4><p>Erkaklik kuchini faollashtiradi</p></div>
+                <div class="ingredient-card" data-aos="flip-left" data-aos-delay="150"><i class="fas fa-root"></i><h4>Jenshen</h4><p>Energiya va chidamlilik</p></div>
+                <div class="ingredient-card" data-aos="flip-left" data-aos-delay="200"><i class="fas fa-seedling"></i><h4>Qora sedana</h4><p>Sperma sifatini yaxshilaydi</p></div>
+                <div class="ingredient-card" data-aos="flip-left" data-aos-delay="250"><i class="fas fa-apple-alt"></i><h4>Uzum danagi</h4><p>Qon aylanishni yaxshilaydi</p></div>
+                <div class="ingredient-card" data-aos="flip-left" data-aos-delay="300"><i class="fas fa-mortar-board"></i><h4>Kist al-Hindi</h4><p>Immunitet va jinsiy faollik</p></div>
+                <div class="ingredient-card" data-aos="flip-left" data-aos-delay="350"><i class="fas fa-bee"></i><h4>Asalari gul changi</h4><p>Tabiiy energiya</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section id="benefits" class="benefits">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Nima uchun <span style="color:#d4a017;">Champion Man?</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card" data-aos="zoom-in"><i class="fas fa-chart-line"></i><h4>Testosteronni oshiradi</h4><p>Tabiiy ravishda erkaklik gormoni darajasini ko'taradi</p></div>
+                <div class="benefit-card" data-aos="zoom-in" data-aos-delay="50"><i class="fas fa-heartbeat"></i><h4>Prostata sog'lig'i</h4><p>Prostata bezini mustahkamlaydi</p></div>
+                <div class="benefit-card" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-dna"></i><h4>Sperma sifatini yaxshilaydi</h4><p>Urug' hujayralarining soni va harakatchanligini oshiradi</p></div>
+                <div class="benefit-card" data-aos="zoom-in" data-aos-delay="150"><i class="fas fa-bolt"></i><h4>Energiya va chidamlilik</h4><p>Kundalik faollik va charchoqni kamaytiradi</p></div>
+                <div class="benefit-card" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-brain"></i><h4>Stressni kamaytiradi</h4><p>Asab tizimini tinchlantiradi</p></div>
+                <div class="benefit-card" data-aos="zoom-in" data-aos-delay="250"><i class="fas fa-tint"></i><h4>Qon aylanishini yaxshilaydi</h4><p>Qon tomirlarni kengaytiradi</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scientific Evidence -->
+    <section class="scientific">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Ilmiy <span style="color:#d4a017;">asos</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="scientific-grid">
+                <div class="scientific-card" data-aos="fade-right">
+                    <h3><i class="fas fa-microscope"></i> Tribulus terrestris</h3>
+                    <ul>
+                        <li>Testosteron ishlab chiqarilishini kuchaytiradi</li>
+                        <li>Mushak kuchini va potensiyani oshiradi</li>
+                        <li>Libidoni tabiiy ravishda faollashtiradi</li>
+                    </ul>
+                </div>
+                <div class="scientific-card" data-aos="fade-left">
+                    <h3><i class="fas fa-flask"></i> Qora sedana yog'i</h3>
+                    <ul>
+                        <li>Sperma soni va harakatchanligini yaxshilaydi</li>
+                        <li>Timoxinon antioksidant oksidativ zarardan himoya qiladi</li>
+                        <li>Kortizol (stress gormoni) darajasini pasaytiradi</li>
+                    </ul>
+                </div>
+                <div class="scientific-card" data-aos="fade-right" data-aos-delay="100">
+                    <h3><i class="fas fa-seedling"></i> Qovun urug'i</h3>
+                    <ul>
+                        <li>Sink, magniy, arginin va omega yog' kislotalariga boy</li>
+                        <li>Spermatogenezni faollashtiradi</li>
+                        <li>Spermogramma ko'rsatkichlarini yaxshilaydi</li>
+                    </ul>
+                </div>
+                <div class="scientific-card" data-aos="fade-left" data-aos-delay="100">
+                    <h3><i class="fas fa-tree"></i> Kist al-Hindi (Costus)</h3>
+                    <ul>
+                        <li>Immunitet tizimini mustahkamlaydi</li>
+                        <li>Jinsiy faollikni oshiradi</li>
+                        <li>Sperma ishlab chiqarishni ko'paytiradi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use -->
+    <section id="howtouse" class="howtouse">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Qanday ishlatiladi?</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="use-grid">
+                <div class="use-card" data-aos="fade-right">
+                    <i class="fas fa-capsules"></i>
+                    <h3>Kapsula</h3>
+                    <p>Kuniga 2 marta, ovqatdan keyin<br>1 kapsuladan iliq suv bilan</p>
+                </div>
+                <div class="use-card" data-aos="fade-left">
+                    <i class="fas fa-jar"></i>
+                    <h3>Asal aralashmasi</h3>
+                    <p>Kuniga 2 marta, ovqatdan keyin<br>1 choy qoshiqdan</p>
+                </div>
+            </div>
+            <div class="warning" data-aos="fade-up">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p><strong>⚠️ Ehtiyot chorasi:</strong> 18 yoshdan kichiklar, homilador va emizikli ayollar uchun tavsiya etilmaydi. Qon bosimi baland bo'lganda shifokor bilan maslahatlashing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container" data-aos="zoom-in">
+            <h2>Hoziroq <span style="color:#d4a017;">buyurtma bering!</span></h2>
+            <p>Cheklangan taklif — 30 kunlik kafolat bilan sinab ko'ring</p>
+            
+            <button class="btn-order" id="ctaOrderBtn">
+                <i class="fas fa-shopping-cart"></i> Buyurtma berish
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>🏆 Champion Man</h4>
+                    <p>Erkaklar salomatligi uchun tabiiy yechim</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Menyu</h4>
+                    <a href="#home">Bosh sahifa</a>
+                    <a href="#ingredients">Tarkibi</a>
+                    <a href="#benefits">Foydalari</a>
+                    <a href="#howtouse">Qo'llanma</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Bog'lanish</h4>
+                    <p><i class="fas fa-phone"></i> +998 55 515 90 96</p>
+                    <a href="https://t.me/champion_men_uzb" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                    <a href="https://www.instagram.com/champion_men_uz?igsh=MTZoaDdqMTJ2eDJsaA==" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-instagram"></i> Instagram 
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Champion Man. Barcha huquqlar himoyalangan. 100% Tabiiy mahsulot</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h3>Buyurtma berish</h3>
+            <p class="modal-product-text">Mahsulot: <strong>Champion Man</strong></p>
+            
+            <form id="orderForm">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="name" placeholder="Ismingiz" required autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user-tag"></i>
+                    <input type="text" id="surname" placeholder="Familiyangiz" autocomplete="off">
+                </div>
+                <div class="input-group phone-group">
+                    <i class="fas fa-phone"></i>
+                    <span class="phone-code">+998</span>
+                    <input type="tel" id="phone" placeholder="90 123 45 67" maxlength="9" autocomplete="off" inputmode="numeric">
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Yuborish
+                </button>
+            </form>
+            <div id="formStatus" class="status"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
