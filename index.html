@@ -378,6 +378,7 @@
             border-radius: 12px;
             text-align: center;
             font-size: 0.85rem;
+            word-break: break-word;
         }
         
         /* ==================== CTA ==================== */
@@ -390,19 +391,17 @@
         .cta h2 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 15px; }
         .cta .highlight { color: #d4a017; }
         
-        .old-price { text-decoration: line-through; color: #999; margin-right: 15px; }
-        .new-price { color: #d4a017; font-size: 2rem; font-weight: bold; }
-        
         .btn-order {
             background: #1a5c3a;
-            padding: 14px 45px;
-            font-size: 1.1rem;
+            padding: 18px 50px;
+            font-size: 1.3rem;
             border: none;
-            border-radius: 50px;
+            border-radius: 60px;
             color: white;
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
+            min-width: 250px;
         }
         
         .btn-order:hover {
@@ -446,7 +445,7 @@
             font-size: 0.8rem;
         }
         
-        /* ==================== MODAL ==================== */
+        /* ==================== MODAL (FORM) ==================== */
         .modal {
             display: none;
             position: fixed;
@@ -465,26 +464,49 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: calc(100% - 30px);
-            max-width: 400px;
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
             background: #f0ebe3;
             padding: 30px 25px;
             border-radius: 24px;
             text-align: center;
         }
         
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .modal-content::-webkit-scrollbar-track {
+            background: #e0d5c5;
+            border-radius: 10px;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #1a5c3a;
+            border-radius: 10px;
+        }
+        
         .modal-icon i { font-size: 2.5rem; color: #1a5c3a; }
-        .modal-content h3 { font-size: 1.3rem; margin: 10px 0 5px; }
+        .modal-content h3 { font-size: 1.4rem; margin: 10px 0 5px; color: #2c1810; }
         .modal-product-text { color: #666; margin-bottom: 20px; font-size: 0.85rem; }
         
         .close {
             position: absolute;
             top: 15px;
             right: 20px;
-            font-size: 24px;
+            font-size: 26px;
             cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.3s;
         }
         
-        .close:hover { color: #d4a017; }
+        .close:hover { color: #d4a017; background: rgba(0,0,0,0.05); }
         
         .input-group {
             display: flex;
@@ -494,19 +516,37 @@
             margin: 12px 0;
             padding: 4px 18px;
             background: white;
+            transition: 0.3s;
+        }
+        
+        .input-group:focus-within {
+            border-color: #1a5c3a;
+            box-shadow: 0 0 0 2px rgba(26,92,58,0.1);
         }
         
         .input-group i {
             color: #1a5c3a;
-            width: 24px;
+            width: 28px;
+            font-size: 1rem;
         }
         
-        .input-group input {
+        .input-group input, .input-group select {
             border: none;
             padding: 14px 8px;
             width: 100%;
             outline: none;
             background: transparent;
+            font-size: 0.95rem;
+            color: #2c1810;
+        }
+        
+        .input-group select {
+            cursor: pointer;
+        }
+        
+        .input-group select option {
+            background: #f0ebe3;
+            color: #2c1810;
         }
         
         .phone-group { justify-content: flex-start; }
@@ -514,32 +554,45 @@
         .phone-code {
             background: #1a5c3a;
             color: white;
-            padding: 5px 12px;
-            border-radius: 30px;
-            font-size: 0.75rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
             font-weight: bold;
-            margin-right: 8px;
+            margin-right: 10px;
+        }
+        
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
         }
         
         .submit-btn {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             background: #1a5c3a;
             border: none;
             border-radius: 50px;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 15px;
+            font-size: 1.1rem;
+            margin-top: 20px;
             transition: 0.3s;
         }
         
         .submit-btn:hover {
             background: #d4a017;
             color: #2c1810;
+            transform: scale(1.01);
         }
         
-        .status { margin-top: 15px; font-size: 0.85rem; }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .status { margin-top: 15px; font-size: 0.85rem; padding: 8px; border-radius: 10px; }
         
         /* ==================== MOBILE ==================== */
         @media (max-width: 768px) {
@@ -575,14 +628,26 @@
             
             .scientific-grid { grid-template-columns: 1fr; }
             .use-grid { grid-template-columns: 1fr; gap: 20px; }
+            
+            .row-2 {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .btn-order {
+                padding: 16px 40px;
+                font-size: 1.2rem;
+                min-width: 200px;
+            }
         }
         
         @media (max-width: 480px) {
             .stats-grid { grid-template-columns: 1fr; }
             .hero-badges { gap: 8px; }
             .badge { font-size: 0.65rem; padding: 5px 12px; }
-            .btn-order { padding: 12px 30px; font-size: 1rem; }
+            .btn-order { padding: 14px 30px; font-size: 1.1rem; min-width: 180px; }
             .ingredients-grid { gap: 15px; }
+            .modal-content { padding: 25px 18px; }
         }
     </style>
 </head>
@@ -764,17 +829,60 @@
         </div>
     </footer>
 
+    <!-- MODAL - TO'LIQ FORMA (Ism, Familiya, Yosh, Viloyat, Telefon) -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="modal-icon"><i class="fas fa-clipboard-list"></i></div>
             <h3>Buyurtma berish</h3>
             <p class="modal-product-text">Mahsulot: <strong>Champion Man</strong></p>
+            
             <form id="orderForm">
-                <div class="input-group"><i class="fas fa-user"></i><input type="text" id="name" placeholder="Ismingiz" required></div>
-                <div class="input-group"><i class="fas fa-user-tag"></i><input type="text" id="surname" placeholder="Familiyangiz"></div>
-                <div class="input-group phone-group"><i class="fas fa-phone"></i><span class="phone-code">+998</span><input type="tel" id="phone" placeholder="90 123 45 67" maxlength="9" inputmode="numeric"></div>
-                <button type="submit" class="submit-btn" id="submitBtn"><i class="fas fa-paper-plane"></i> Yuborish</button>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="name" placeholder="Ismingiz *" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-user-tag"></i>
+                    <input type="text" id="surname" placeholder="Familiyangiz">
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-calendar-alt"></i>
+                    <input type="number" id="age" placeholder="Yoshingiz *" min="18" max="100" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <select id="region" required>
+                        <option value="" disabled selected>Viloyatingizni tanlang *</option>
+                        <option value="Toshkent shahar">🏙️ Toshkent shahar</option>
+                        <option value="Toshkent viloyati">🏞️ Toshkent viloyati</option>
+                        <option value="Samarqand">🕌 Samarqand</option>
+                        <option value="Buxoro">📿 Buxoro</option>
+                        <option value="Andijon">🍎 Andijon</option>
+                        <option value="Farg'ona">🌸 Farg'ona</option>
+                        <option value="Namangan">🏔️ Namangan</option>
+                        <option value="Qashqadaryo">🐪 Qashqadaryo</option>
+                        <option value="Surxondaryo">🌄 Surxondaryo</option>
+                        <option value="Xorazm">🏜️ Xorazm</option>
+                        <option value="Navoiy">⛏️ Navoiy</option>
+                        <option value="Jizzax">🌾 Jizzax</option>
+                        <option value="Sirdaryo">🌊 Sirdaryo</option>
+                        <option value="Qoraqalpog'iston">🏕️ Qoraqalpog'iston</option>
+                    </select>
+                </div>
+                
+                <div class="input-group phone-group">
+                    <i class="fas fa-phone"></i>
+                    <span class="phone-code">+998</span>
+                    <input type="tel" id="phone" placeholder="90 123 45 67" maxlength="9" inputmode="numeric" required>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Yuborish
+                </button>
             </form>
             <div id="formStatus" class="status"></div>
         </div>
