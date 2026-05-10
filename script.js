@@ -1,7 +1,7 @@
 // ==================== AOS INIT ====================
 AOS.init({ duration: 800, once: true, offset: 50 });
 
-// ==================== NAVBAR (SCROLL EFFECT) ====================
+// ==================== NAVBAR SCROLL ====================
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
     navbar.style.padding = window.scrollY > 50 ? '10px 0' : '15px 0';
@@ -57,11 +57,10 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ==================== TELEGRAM BOT ====================
-const BOT_TOKEN = '8772794106:AAHWLntSm79O9S2C7fhpIV6PGS-QStqPvhI';
-const CHAT_ID = '8535384193';
+// ==================== BITRIX24 WEBHOOK ====================
+const BITRIX_WEBHOOK = 'https://naturalmedik.bitrix24.kz/rest/10/t1rkgccuexw4j4fc/crm.lead.add.json';
 
-// Telefon validatsiyasi (faqat O'zbekiston raqamlari)
+// ==================== TELEFON VALIDATSIYASI ====================
 function validatePhone(phone) {
     const clean = phone.replace(/\D/g, '');
     const pattern = /^(90|91|93|94|95|97|98|99|33|88|77|50|55)\d{7}$/;
@@ -70,7 +69,7 @@ function validatePhone(phone) {
     return { ok: true, clean };
 }
 
-// Input formatlash
+// Telefon input formatlash
 const phoneInput = document.getElementById('phone');
 if (phoneInput) {
     phoneInput.oninput = (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9); };
@@ -100,7 +99,42 @@ document.getElementById('ctaOrderBtn')?.addEventListener('click', openModal);
 closeBtn?.addEventListener('click', closeModal);
 window.onclick = (e) => { if (e.target === modal) closeModal(); };
 
-// ==================== FORM SUBMIT ====================
+// ==================== BITRIX24 GA YUBORISH ====================
+async function sendToBitrix24(name, surname, age, region, phone) {
+    const leadData = {
+        fields: {
+            TITLE: `Champion Man - ${name} ${surname || ''}`,
+            NAME: name,
+            LAST_NAME: surname || '',
+            AGE: age,
+            PHONE: [{ VALUE: `+998${phone}`, VALUE_TYPE: 'WORK' }],
+            COMMENTS: `Viloyat: ${region}\nYosh: ${age}\nTelefon: +998${phone}\nMahsulot: Champion Man`,
+            SOURCE_ID: 'WEB'
+        }
+    };
+    
+    try {
+        const response = await fetch(BITRIX_WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(leadData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.error) {
+            console.error('Bitrix24 xatosi:', result.error_description);
+            return { ok: false, message: result.error_description };
+        }
+        
+        return { ok: true, result };
+    } catch (error) {
+        console.error('Bitrix24 ulanish xatosi:', error);
+        return { ok: false, message: error.message };
+    }
+}
+
+// ==================== FORMA YUBORISH ====================
 if (form) {
     form.onsubmit = async (e) => {
         e.preventDefault();
@@ -109,7 +143,7 @@ if (form) {
         const surname = document.getElementById('surname').value.trim();
         const age = document.getElementById('age').value.trim();
         const region = document.getElementById('region').value;
-        const phone = document.getElementById('phone').value.trim();
+        const phoneRaw = document.getElementById('phone').value.trim();
         
         // Validatsiya
         if (!name) {
@@ -130,41 +164,33 @@ if (form) {
             return;
         }
         
-        const phoneCheck = validatePhone(phone);
+        const phoneCheck = validatePhone(phoneRaw);
         if (!phoneCheck.ok) {
             statusDiv.innerHTML = phoneCheck.msg;
             statusDiv.style.color = '#e74c3c';
             return;
         }
         
+        // Yuklash holati
         statusDiv.innerHTML = '⏳ Yuborilmoqda...';
         statusDiv.style.color = '#3498db';
         if (submitBtn) submitBtn.disabled = true;
         
-        // Telegram xabari
-        let msg = `🆕 YANGI BUYURTMA!\n━━━━━━━━━━━━━━━━━━━━━\n📦 Mahsulot: Champion Man\n👤 Ism: ${name}`;
-        if (surname) msg += `\n👨 Familiya: ${surname}`;
-        msg += `\n🎂 Yosh: ${age}\n📍 Viloyat: ${region}\n📞 Telefon: +998${phoneCheck.clean}\n🕐 Vaqt: ${new Date().toLocaleString('uz-UZ')}`;
+        // Faqat Bitrix24 ga yuborish
+        const result = await sendToBitrix24(name, surname, age, region, phoneCheck.clean);
         
-        try {
-            const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: msg })
-            });
-            const data = await res.json();
-            
-            if (data.ok) {
-                statusDiv.innerHTML = '✅ Sizning soʻrovingiz qabul qilindi! Tez orada bogʻlanamiz.';
-                statusDiv.style.color = '#27ae60';
-                setTimeout(() => { closeModal(); if (submitBtn) submitBtn.disabled = false; }, 2500);
-            } else {
-                throw new Error();
-            }
-        } catch (err) {
+        if (result.ok) {
+            statusDiv.innerHTML = '✅ Soʻrovingiz qabul qilindi! Tez orada bogʻlanamiz.';
+            statusDiv.style.color = '#27ae60';
+            setTimeout(() => {
+                closeModal();
+                if (submitBtn) submitBtn.disabled = false;
+            }, 2500);
+        } else {
             statusDiv.innerHTML = '❌ Xatolik yuz berdi. Qaytadan urining.';
             statusDiv.style.color = '#e74c3c';
             if (submitBtn) submitBtn.disabled = false;
+            console.error('Yuborishda xatolik:', result.message);
         }
     };
 }
