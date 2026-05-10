@@ -18,4 +18,4 @@ Champion Man - erkaklar salomatligi uchun 100% tabiiy va halol mahsulotning rasm
 | Telefon | `#phone` | Majburiy (+998) |
 
 
-## 🤖 Telegram Bot
+## 🤖 Bitrix24
