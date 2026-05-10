@@ -1,7 +1,7 @@
 // ==================== AOS INIT ====================
 AOS.init({ duration: 800, once: true, offset: 50 });
 
-// ==================== NAVBAR (SCROLL EFECT) ====================
+// ==================== NAVBAR (SCROLL EFFECT) ====================
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
     navbar.style.padding = window.scrollY > 50 ? '10px 0' : '15px 0';
@@ -58,8 +58,8 @@ window.addEventListener('scroll', () => {
 });
 
 // ==================== TELEGRAM BOT ====================
-const BOT_TOKEN = '7670335502:AAHo-2YvIqREbv0CaC5dr5eUL-sFWX2Bp4g';
-const CHAT_ID = '1408342614';
+const BOT_TOKEN = '8772794106:AAHWLntSm79O9S2C7fhpIV6PGS-QStqPvhI';
+const CHAT_ID = '8535384193';
 
 // Telefon validatsiyasi (faqat O'zbekiston raqamlari)
 function validatePhone(phone) {
@@ -107,10 +107,25 @@ if (form) {
         
         const name = document.getElementById('name').value.trim();
         const surname = document.getElementById('surname').value.trim();
+        const age = document.getElementById('age').value.trim();
+        const region = document.getElementById('region').value;
         const phone = document.getElementById('phone').value.trim();
         
+        // Validatsiya
         if (!name) {
             statusDiv.innerHTML = '❌ Ismingizni kiriting!';
+            statusDiv.style.color = '#e74c3c';
+            return;
+        }
+        
+        if (!age || age < 18 || age > 100) {
+            statusDiv.innerHTML = '❌ Yoshingiz 18-100 oralig\'ida bo\'lishi kerak!';
+            statusDiv.style.color = '#e74c3c';
+            return;
+        }
+        
+        if (!region) {
+            statusDiv.innerHTML = '❌ Viloyatingizni tanlang!';
             statusDiv.style.color = '#e74c3c';
             return;
         }
@@ -126,9 +141,10 @@ if (form) {
         statusDiv.style.color = '#3498db';
         if (submitBtn) submitBtn.disabled = true;
         
+        // Telegram xabari
         let msg = `🆕 YANGI BUYURTMA!\n━━━━━━━━━━━━━━━━━━━━━\n📦 Mahsulot: Champion Man\n👤 Ism: ${name}`;
         if (surname) msg += `\n👨 Familiya: ${surname}`;
-        msg += `\n📞 Telefon: +998${phoneCheck.clean}\n🕐 Vaqt: ${new Date().toLocaleString('uz-UZ')}`;
+        msg += `\n🎂 Yosh: ${age}\n📍 Viloyat: ${region}\n📞 Telefon: +998${phoneCheck.clean}\n🕐 Vaqt: ${new Date().toLocaleString('uz-UZ')}`;
         
         try {
             const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -139,9 +155,9 @@ if (form) {
             const data = await res.json();
             
             if (data.ok) {
-                statusDiv.innerHTML = '✅ Buyurtma qabul qilindi!';
+                statusDiv.innerHTML = '✅ Sizning soʻrovingiz qabul qilindi! Tez orada bogʻlanamiz.';
                 statusDiv.style.color = '#27ae60';
-                setTimeout(() => { closeModal(); if (submitBtn) submitBtn.disabled = false; }, 2000);
+                setTimeout(() => { closeModal(); if (submitBtn) submitBtn.disabled = false; }, 2500);
             } else {
                 throw new Error();
             }
